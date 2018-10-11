@@ -24,7 +24,7 @@ func f1() {
 }
 
 func f2() {
-  defer recover.Any([]error{c.ErrorUsernameBlank, c.ErrorUsernameAlreadyTaken}, func(err interface{}) {
+  defer recover.Any([]error{ErrorUsernameBlank, ErrorUsernameAlreadyTaken}, func(err interface{}) {
     fmt.Printf("got error: %s", err.(error))
   })
 }
