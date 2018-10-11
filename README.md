@@ -14,7 +14,7 @@ which helps to work with `recover` in bit pleasant way.
 
 ## Usage
 
-````
+````go
 import "github.com/thepkg/recover"
 
 func f1() {
