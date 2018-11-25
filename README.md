@@ -17,15 +17,20 @@ which helps to work with `recover` in bit pleasant way.
 ````go
 import "github.com/thepkg/recover"
 
-func f1() {
-  defer recover.All(func(err interface{}) {
-    fmt.Printf("got error: %s", err.(error))
-  })
-}
+// Performs recover in case of panic with error ErrorUsernameBlank
+// otherwise panic won't be recovered and will be propagated.
+defer recover.One(ErrorUsernameBlank, func(err interface{}) {
+  fmt.Printf("got error: %s", err)
+})
 
-func f2() {
-  defer recover.Any([]error{ErrorUsernameBlank, ErrorUsernameAlreadyTaken}, func(err interface{}) {
-    fmt.Printf("got error: %s", err.(error))
-  })
-}
+// Performs recover in case of panic with error ErrorUsernameBlank or ErrorUsernameAlreadyTaken
+// otherwise panic won't be recovered and will be propagated.
+defer recover.Any([]error{ErrorUsernameBlank, ErrorUsernameAlreadyTaken}, func(err interface{}) {
+  fmt.Printf("got error: %s", err)
+})
+
+// Performs recover for all panics.
+defer recover.All(func(err interface{}) {
+  fmt.Printf("got error: %s", err)
+})
 ````
